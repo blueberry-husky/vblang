@@ -45,7 +45,7 @@ pint() {
     regb=''
     regc=''
     bffr=''
-    echo [initialized palang V2.5]
+    echo [initialized palang V2.6]
 }
 uib() {
     read regb
@@ -67,6 +67,9 @@ cif() {
         rega=$3
     fi
 }
+ose() {
+    $1
+}
 # pint - initializes variables
 # cbf - clear bffr
 # cba - copy rega to bffr
@@ -84,10 +87,11 @@ cif() {
 # ldf - load file into buffer
 # svf - save file from buffer
 # cif - if statment use as regc = bffr set rega 165
+# ose - execute shell command
 
 # put your palang code here
 pint
-prt 'Demo for palang V2.5'
+prt 'Demo for palang V2.6'
 prt 'enter first number to add'
 uib
 prt 'enter second number'
