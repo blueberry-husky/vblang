@@ -89,21 +89,25 @@ ose() {
 # cif - if statment use as regc = bffr set rega 165
 # ose - execute shell command
 
+# programs
+# Demo:
+# pint
+# prt 'Demo for palang V2.6'
+# prt 'enter first number to add'
+# uib
+# prt 'enter second number'
+# uic
+# mop +
+# cba
+# dbf
+# prt 'saving to output.txt'
+# svf output.txt
+# cbf
+# prt 'loading file output.txt'
+# ldf output.txt
+# prt 'file contents of output.txt saved to bffr'
+# dbf
+# prt 'end of demo!'
+
 # put your palang code here
-pint
-prt 'Demo for palang V2.6'
-prt 'enter first number to add'
-uib
-prt 'enter second number'
-uic
-mop +
-cba
-dbf
-prt 'saving to output.txt'
-svf output.txt
-cbf
-prt 'loading file output.txt'
-ldf output.txt
-prt 'file contents of output.txt saved to bffr'
-dbf
-prt 'end of demo!'
+
