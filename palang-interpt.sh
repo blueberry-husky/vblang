@@ -45,7 +45,7 @@ pint() {
     regb=''
     regc=''
     bffr=''
-    echo [initialized palang V2.6]
+    echo [initialized vblang V2.6]
 }
 uib() {
     read regb
@@ -92,7 +92,7 @@ ose() {
 # programs
 # Demo:
 # pint
-# prt 'Demo for palang V2.6'
+# prt 'Demo for vblang V2.6'
 # prt 'enter first number to add'
 # uib
 # prt 'enter second number'
@@ -109,5 +109,5 @@ ose() {
 # dbf
 # prt 'end of demo!'
 
-# put your palang code here
+# put your vblang code here
 
