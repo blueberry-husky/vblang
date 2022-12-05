@@ -9,7 +9,7 @@ while i < len(splitCode):
   opcode = splitLine[0].lower()
   if opcode == "prt":
     print((' '.join(splitLine[1:])).strip('"'))
-  elif opcode == "DMP":
+  elif opcode == "dmp":
     print(rega, regb, regc, regd, rege, bffr)
   elif opcode == "pint":
     rega = 0
