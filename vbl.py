@@ -20,6 +20,7 @@ while i < len(splitCode):
     bffr = ""
   elif opcode == "jmp":
     i = int(splitLine[1])
+    continue
   elif opcode == "cbf":
     bffr = ""
   elif opcode == "cba":
