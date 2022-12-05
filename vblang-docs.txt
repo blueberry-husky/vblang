@@ -41,7 +41,7 @@ rcs - sets value to regc
 rbs - sets value to regb
 ldf - load file into buffer
 svf - save file from buffer
-NOT IMPLEMENTED ose - execute shell command, e.g ls
+ose - execute shell command, e.g ls
 
 cmp - compares regb and regc and jumps to line if equal
 jmp - jumps to a specified line in the program
