@@ -26,7 +26,8 @@ prt "the answer is:"
 dbf
 prt "end"
 "
-
+Debug features:
+dmp - print the data of all registers and the buffer
 
 
 pint - initializes
