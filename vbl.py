@@ -1,4 +1,5 @@
 import sys
+import os
 code = ""
 with open(sys.argv[1],'r') as file:
     code = file.read()
@@ -20,6 +21,7 @@ while i < len(splitCode):
     bffr = ""
   elif opcode == "jmp":
     i = int(splitLine[1])
+    continue
   elif opcode == "cbf":
     bffr = ""
   elif opcode == "cba":
@@ -44,7 +46,10 @@ while i < len(splitCode):
   elif opcode == "svf":
     print("NOT IMPLEMENTED")
   elif opcode == "ose":
-    print("NOT IMPLEMENTED")
+    snake_case_supremacy = ' '
+    splitLine = splitLine[1:]
+    notSplitLine = snake_case_supremacy.join(splitLine)
+    os.system(notSplitLine)
   elif opcode == "cmp":
     if regb == regc:
       i = int(splitLine[1])
