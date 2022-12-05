@@ -31,6 +31,7 @@ prt "the answer is:"
 dbf
 prt "end"
 "
+
 Debug features:
 dmp - print the data of all registers and the buffer
 
@@ -45,17 +46,18 @@ cbe - copy bffr to rege
 dbf - display contents of buffer to screen
 rcs - sets value to regc
 rbs - sets value to regb
-ldf - load file into buffer
-svf - save file from buffer
 ose - execute shell command, e.g ls
 
-cmp - compares regb and regc and jumps to line if equal
-jmp - jumps to a specified line in the program
-NOT IMPLEMENTED cal - calls a specified function declared by @function
-NOT IMPLEMENTED rtn - returns from a function call to where it was originaly called from
+icm - compares regb and regc and jumps to line if equal
+scm - compares regd and rege and jumps to line if equal
+ibm - compares regb to int and jumps to line if equal
+icm - compares regc to int and jumps to line if equal
+idm - compares regd to string and jumps to line if equal
+iem - compares rege to string and jumps to line if equal
 
-NOT IMPLEMENTED crf - creates a new file with specified name 
-NOT IMPLEMENTED dlf - deletes a specified file
+jmp - jumps to a specified line in the program
+
+dlf - deletes a specified file
 
 ctd - copy text from bffr to regd
 cte - copy text from bffr to rege
@@ -64,13 +66,16 @@ rte - sets text to rege from string
 stb - sets text to bffr from string
 ltd - loads text from file to regd
 lte - loads text from file to rege
-NOT IMPLEMENTED stf - saves text from regb to file
+srb - saves int from regb to file
+sra - saves int from rega to file
+src - saves int from regc to file
 uib - get int user input into regb
 uic - get int user input into regc
 uid - get string user input into regd
 uie - get string user input into rege
 
-swp - swaps the contents of regb and regc
+isw - swaps the contents of regb and regc
+ssw - swaps the contents of regd and rege
 add - adds the contents of regb and regc into rega
 sub - subtracts the contents of regb from regc into rega
 mul - multiplies the contents of regb and regc into rega
