@@ -43,15 +43,16 @@ while i < len(splitCode):
   elif opcode == "ldf":
     with open(splitLine[1],'r') as file:
       bffr = file.read()
-  elif opcode == "svf":
-    print("NOT IMPLEMENTED")
   elif opcode == "ose":
     snake_case_supremacy = ' '
     splitLine = splitLine[1:]
     notSplitLine = snake_case_supremacy.join(splitLine)
     os.system(notSplitLine)
-  elif opcode == "cmp":
+  elif opcode == "icm":
     if regb == regc:
+      i = int(splitLine[1])
+  elif opcode == "scm":
+    if regd == rege:
       i = int(splitLine[1])
   elif opcode == "ctd":
     regd = bffr
@@ -69,11 +70,16 @@ while i < len(splitCode):
   elif opcode == "lte":
     with open(splitLine[1],'r') as file:
       rege = file.read()
-  elif opcode == "swp":
+  elif opcode == "isw":
     swp_tmp = regb
     swp_tmp2 = regc
     regb = swp_tmp2
     regc = swp_tmp
+  elif opcode == "ssw":
+    swp_tmp = regd
+    swp_tmp2 = rege
+    regd = swp_tmp2
+    rege = swp_tmp
   elif opcode == "add":
     rega = regb + regc
   elif opcode == "sub":
@@ -103,4 +109,31 @@ while i < len(splitCode):
     regd = input()
   elif opcode == "uie":
     rege = input()
+  elif opcode == "dlf":
+    if os.path.exists(splitLine[1]):
+      os.remove(splitLine[1])
+  elif opcode == "srb":
+    f = open(splitLine[1], "w")
+    f.write(regb)
+    f.close()
+  elif opcode == "sra":
+    f = open(splitLine[1], "w")
+    f.write(rega)
+    f.close()
+  elif opcode == "src":
+    f = open(splitLine[1], "w")
+    f.write(regc)
+    f.close()
+  elif opcode == "ibm":
+    if regb == splitLine[1]:
+        i = int(splitLine[2])
+  elif opcode == "icm":
+    if regc == splitLine[1]:
+        i = int(splitLine[2])
+  elif opcode == "idm":
+    if regd == splitLine[1]:
+        i = int(splitLine[2])
+  elif opcode == "iem":
+    if rege == splitLine[1]:
+        i = int(splitLine[2])
   i = i + 1
