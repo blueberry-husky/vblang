@@ -1,0 +1,23 @@
+pint
+prt "0. addition"
+prt "1. subtraction"
+uib
+isb 13
+prt "sub enter first number"
+uib
+prt "enter second number"
+uic
+sub
+cba
+prt "the answer is:"
+dbf
+jmp 22
+prt "add enter first number"
+uib
+prt "enter second number"
+uic
+add
+cba
+prt "the answer is:"
+dbf
+prt "end"

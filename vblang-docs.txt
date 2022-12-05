@@ -1,0 +1,77 @@
+i dont really know how this language works, you can find some example programs tips and a list of commands below
+i use .vbl for the file extension but its not really needed
+to run it make sure the interpter is in the same location and run 'python3 vbl.py file.vbl" and replace file.vbl with the script you wanna run
+Calculator:"
+pint
+prt "0. addition"
+prt "1. subtraction"
+uib
+isb 13
+prt "sub enter first number"
+uib
+prt "enter second number"
+uic
+sub
+cba
+prt "the answer is:"
+dbf
+jmp 22
+prt "add enter first number"
+uib
+prt "enter second number"
+uic
+add
+cba
+prt "the answer is:"
+dbf
+prt "end"
+"
+
+
+
+pint - initializes
+cbf - clear bffr
+cba - copy rega to bffr
+crb - copy regb to bffr
+ccb - copy regc to bffr
+cbd - copy bffr to regd
+cbe - copy bffr to rege
+dbf - display contents of buffer to screen
+rcs - sets value to regc
+rbs - sets value to regb
+ldf - load file into buffer
+svf - save file from buffer
+NOT IMPLEMENTED ose - execute shell command, e.g ls
+
+cmp - compares regb and regc and jumps to line if equal
+jmp - jumps to a specified line in the program
+NOT IMPLEMENTED cal - calls a specified function declared by @function
+NOT IMPLEMENTED rtn - returns from a function call to where it was originaly called from
+
+NOT IMPLEMENTED crf - creates a new file with specified name 
+NOT IMPLEMENTED dlf - deletes a specified file
+
+ctd - copy text from bffr to regd
+cte - copy text from bffr to rege
+rtd - sets text to regd from string
+rte - sets text to rege from string
+stb - sets text to bffr from string
+ltd - loads text from file to regd
+lte - loads text from file to rege
+NOT IMPLEMENTED stf - saves text from regb to file
+uib - get int user input into regb
+uic - get int user input into regc
+uid - get string user input into regd
+uie - get string user input into rege
+
+swp - swaps the contents of regb and regc
+add - adds the contents of regb and regc into rega
+sub - subtracts the contents of regb from regc into rega
+mul - multiplies the contents of regb and regc into rega
+div - divides the contents of regb by regc into rega
+inc - increments the value of regb by 1
+dec - decrements the value of regb by 1
+
+isa - checks if rega is equal to 0 if so jump to line
+isb - checks if regb is equal to 0 if so jump to line
+isc - checks if regc is equal to 0 if so jump to line
