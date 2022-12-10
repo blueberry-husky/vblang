@@ -89,9 +89,9 @@ while i < len(splitCode):
   elif opcode == "div":
     rega = regb / regc
   elif opcode == "inc":
-    regb = regb + 1
+    regb += 1
   elif opcode == "dec":
-    regb = regb - 1
+    regb -= 1
   elif opcode == "isa":
     if rega == 0:
       i = int(splitLine[1])
@@ -136,4 +136,4 @@ while i < len(splitCode):
   elif opcode == "iem":
     if rege == splitLine[1]:
         i = int(splitLine[2])
-  i = i + 1
+  i += 1
