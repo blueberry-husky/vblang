@@ -1,0 +1,45 @@
+pint
+prt "Select operation"
+prt "add"
+prt "sub"
+prt "mul"
+prt "div"
+uid
+idm add 12
+idm sub 20
+idm mul 28
+idm div 36
+prt "invalid operation"
+jmp 0
+prt "enter first number to add"
+uib
+prt "enter second number to add"
+uic
+add
+cba
+dbf
+jmp 45
+prt "enter first number to subtract"
+uib    
+prt "enter second number to subtract"
+uic
+sub
+cba
+dbf
+jmp 45
+prt "enter first number to multiply"
+uib    
+prt "enter second number to mulitply"
+uic
+mul
+cba
+dbf
+jmp 45
+prt "enter first number to divide"
+uib    
+prt "enter second number to divide"
+uic
+div
+cba
+dbf
+prt "done!"
