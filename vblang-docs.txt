@@ -1,12 +1,10 @@
-i dont really know how this language works, you can find some example programs tips and a list of commands below
 i use .vbl for the file extension but its not really needed
-to run it make sure the interpter is in the same location and run 'python3 vbl.py file.vbl" and replace file.vbl with the script you wanna run
+to run it make sure the interpter is in the same location and run 'python3 vbl.py file.vbl" and replace file.vbl with the program you wanna run
 
 tips:
 you can use pint anywhere in the program to reset all registers and the buffer
 
-
-Calculator:"
+Calculator example (might not work due to big updates to vblang):"
 pint
 prt "0. addition"
 prt "1. subtraction"
@@ -32,11 +30,9 @@ dbf
 prt "end"
 "
 
-Debug features:
-dmp - print the data of all registers and the buffer
-
-
-pint - initializes
+commands:
+pint - initializes program does not accept arguments
+dmp - display contents of all registers and bffr
 cbf - clear bffr
 cba - copy rega to bffr
 crb - copy regb to bffr
@@ -44,35 +40,35 @@ ccb - copy regc to bffr
 cbd - copy bffr to regd
 cbe - copy bffr to rege
 dbf - display contents of buffer to screen
-rcs - sets value to regc
-rbs - sets value to regb
-ose - execute shell command, e.g ls
+rcs - sets value to regc - example:"rcs 5"
+rbs - sets value to regb - example:"rbs 5"
+ose - execute shell command - example:"whoami"
 
-icm - compares regb and regc and jumps to line if equal
-scm - compares regd and rege and jumps to line if equal
-ibm - compares regb to int and jumps to line if equal
-icm - compares regc to int and jumps to line if equal
-idm - compares regd to string and jumps to line if equal
-iem - compares rege to string and jumps to line if equal
+icm - compares regb and regc and jumps to line if equal - example:"icm 5" jumps to line 5 if regb and regc are the same int value
+scm - compares regd and rege and jumps to line if equal - example:"icm 5" jumps to line 5 if regd and regd are the same str value
+ibm - compares regb to int and jumps to line if equal - example:"ibm 5 20" jumps to line 20 if regb is 5
+icm - compares regc to int and jumps to line if equal - example:"icm 5 20" jumps to line 20 if regc is 5
+idm - compares regd to string and jumps to line if equal - example:"idm yes 20" jumps to line 20 if regd is yes
+iem - compares rege to string and jumps to line if equal - example:"iem yes 20" jumps to line 20 if rege is yes
 
-jmp - jumps to a specified line in the program
+jmp - jumps to a specified line in the program - example:"jmp 20"
 
-dlf - deletes a specified file
+dlf - deletes a specified file - example:"dlf file.txt"
 
 ctd - copy text from bffr to regd
 cte - copy text from bffr to rege
-rtd - sets text to regd from string
-rte - sets text to rege from string
-stb - sets text to bffr from string
-ltd - loads text from file to regd
-lte - loads text from file to rege
-srb - saves int from regb to file
-sra - saves int from rega to file
-src - saves int from regc to file
-uib - get int user input into regb
-uic - get int user input into regc
-uid - get string user input into regd
-uie - get string user input into rege
+rtd - sets text to regd from string - example:"rtd test" sets regd to test
+rte - sets text to rege from string - example:"rte test" sets rege to test
+stb - sets text to bffr from string - example:"stb test" sets bffr to test
+ltd - loads text from file to regd - example:"ltd file.txt" sets regd to the contents of file.txt
+lte - loads text from file to rege - example:"lte file.txt" sets rege to the contents of file.txt
+srb - saves int from regb to file - example:"srb file.txt" sets file.txt to the contents of regb
+sra - saves int from rega to file - example:"sra file.txt" sets file.txt to the contents of rega
+src - saves int from regc to file - example:"src file.txt" sets file.txt to the contents of regc
+uib - get int user input into regb does not accept arguments
+uic - get int user input into regc does not accept arguments
+uid - get string user input into regd does not accept arguments
+uie - get string user input into rege does not accept arguments
 
 isw - swaps the contents of regb and regc
 ssw - swaps the contents of regd and rege
@@ -83,6 +79,6 @@ div - divides the contents of regb by regc into rega
 inc - increments the value of regb by 1
 dec - decrements the value of regb by 1
 
-isa - checks if rega is equal to 0 if so jump to line
-isb - checks if regb is equal to 0 if so jump to line
-isc - checks if regc is equal to 0 if so jump to line
+isa - checks if rega is equal to 0 if so jump to line - example:"isa 20" jumps to line 20 if rega is 0
+isb - checks if regb is equal to 0 if so jump to line - example:"isb 20" jumps to line 20 if regb is 0
+isc - checks if regc is equal to 0 if so jump to line - example:"isc 20" jumps to line 20 if regc is 0
