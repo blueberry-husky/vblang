@@ -4,32 +4,6 @@ to run it make sure the interpter is in the same location and run 'python3 vbl.p
 tips:
 you can use rst anywhere in the program to reset all registers and the buffer
 
-Calculator example (might not work due to big updates to vblang):"
-rst
-prt "0. addition"
-prt "1. subtraction"
-uib
-isb 13
-prt "sub enter first number"
-uib
-prt "enter second number"
-uic
-sub
-cba
-prt "the answer is:"
-dbf
-jmp 22
-prt "add enter first number"
-uib
-prt "enter second number"
-uic
-add
-cba
-prt "the answer is:"
-dbf
-prt "end"
-"
-
 commands:
 rst - resets all internal buffers to initial state, doesn't accept arguments
 dmp - display contents of all registers and bffer
@@ -61,5 +35,7 @@ div <reg1> <reg2> - divides the contents of <ID given in arg1> by the contents o
 rem <reg1> <reg2> - gets modulus of reg1 over reg2 and sets reg1 to the result
 inc <reg1> - decrements the value of a register given as argument by 1
 dec <reg1> - decrements the value of a register given as argument by 1
+
+rg<type> <register> <length(string)/range_start> <range_end> - type can be one of: `s` for a random string, `i` for a random integer(requires two arguments: a range start and end) and `f` for a random f64, syntax identical to random integers
 
 is<id> <jumpto> - jumps to line given as argument if register <id> is equal to 0

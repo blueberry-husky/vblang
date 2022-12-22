@@ -2,6 +2,8 @@
 //     Divide()
 // }
 
+use rand::{thread_rng, Rng};
+
 #[derive(Debug, PartialEq, Eq)]
 pub enum JumpTo<'a> {
     Absolute(usize),
@@ -16,7 +18,14 @@ pub enum InputType {
     Float,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq)]
+pub enum RandType {
+    String(usize),
+    Integer(isize, isize),
+    Float(f64, f64),
+}
+
+#[derive(Debug, PartialEq)]
 pub enum Token<'a> {
     Reset,
     Dump,
@@ -43,6 +52,7 @@ pub enum Token<'a> {
     Rem(u8, u8),
     Increment(u8),
     Decrement(u8),
+    Rand(u8, RandType),
     Unknown(u32, &'a str, Option<&'a str>),
 }
 
@@ -73,6 +83,43 @@ fn lex_i_guess<'a>(line: u32, op: &'a str, data: Option<&'a str>) -> Token<'a> {
         b"dmp" => Dump,
         b"clr" => Clear(data.map(|x| x.as_bytes().get(0).unwrap_or(&65)).copied()),
         b"dsp" => Display(data.map(|x| x.as_bytes().get(0).unwrap_or(&65)).copied()),
+        &[b'r', b'g', id] => {
+            use RandType as rt;
+            let Some(mut args) = data.map(|x| x.splitn(3, ' ')) else {
+                return Unknown(line, op, data)
+            };
+            let (Some(reg), Some(arg1), arg2) = (args.next(),args.next(), args.next()) else {
+                return Unknown(line, op, data)
+            };
+
+            match id {
+                b's' => {
+                    let Ok(len) = arg1.parse() else {
+                        return Unknown(line, op, data)
+                    };
+                    Rand(*reg.as_bytes().get(0).unwrap_or(&65), rt::String(len))
+                }
+                b'i' => {
+                    let (Ok(start), Ok(end)) = (arg1.parse(), arg2.unwrap_or("a").parse()) else {
+                        return Unknown(line, op, data)
+                    };
+                    Rand(
+                        *reg.as_bytes().get(0).unwrap_or(&65),
+                        rt::Integer(start, end),
+                    )
+                }
+                b'f' => {
+                    let (Ok(start), Ok(end)) = (arg1.parse(), arg2.unwrap_or("a").parse()) else {
+                        return Unknown(line, op, data)
+                    };
+                    Rand(*reg.as_bytes().get(0).unwrap_or(&65), rt::Float(start, end))
+                }
+                _ => panic!(
+                    "Incorrect `rg` syntax! line: {line}\n{op} {}",
+                    data.unwrap_or("")
+                ),
+            }
+        }
         &[b'i', b's', id] => {
             use JumpTo::*;
             ConditionalJump(
