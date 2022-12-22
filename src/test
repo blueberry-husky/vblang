@@ -1,0 +1,4 @@
+sta asd
+stb 2
+add a b
+dsp a
