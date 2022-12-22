@@ -1,8 +1,9 @@
 use crate::value::{interpret_string, Value};
 use std::{borrow::Cow, collections::HashMap, fs::read_to_string, io::stdin};
 
-use crate::lexer::{InputType, JumpTo, Token};
+use crate::lexer::{InputType, JumpTo, RandType, Token};
 use array_init::array_init;
+use rand::Rng;
 
 pub fn interpret(tokens: Vec<Token>) {
     use Token::*;
@@ -160,6 +161,14 @@ pub fn interpret(tokens: Vec<Token>) {
                         .read_line(&mut buf)
                         .expect("Failed to read line from STDIN");
                     buf.pop();
+                    match buf.chars().last() {
+                        Some('\r') => {
+                            buf.pop();
+                            ()
+                        }
+                        _ => (),
+                    }
+
                     match input_type {
                         it::String => break String(buf),
                         it::Integer => {
@@ -206,6 +215,21 @@ pub fn interpret(tokens: Vec<Token>) {
             }
             Decrement(idx) => {
                 registers[*idx as usize] = registers[*idx as usize].to_owned() - Integer(1)
+            }
+            Rand(idx, rand_type) => {
+                use RandType as rt;
+                let mut rng = rand::thread_rng();
+                registers[*idx as usize] = match rand_type {
+                    rt::Integer(start, end) => Integer(rng.gen_range(*start..=*end)),
+                    rt::Float(start, end) => Float(rng.gen_range(*start as f64..=*end as f64)),
+                    rt::String(len) => {
+                        let mut buf = std::string::String::with_capacity(*len);
+                        while buf.len() < *len {
+                            buf.push(rng.gen())
+                        }
+                        String(buf)
+                    }
+                }
             }
             n => println!("{n:?}"),
         }

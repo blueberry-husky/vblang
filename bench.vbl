@@ -1,0 +1,11 @@
+rst
+stc 0
+ste 10000000
+lbl start
+inc c
+cmp c e end
+jmp -3
+
+lbl end
+prt done!
+rst

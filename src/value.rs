@@ -1,6 +1,6 @@
 use std::{
     borrow::Cow,
-    ops::{self, Add, Div, Mul, Rem, Sub},
+    ops::{Add, Div, Mul, Rem, Sub},
 };
 
 use core::fmt;
