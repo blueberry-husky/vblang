@@ -1,0 +1,15 @@
+sta 0
+stb 1
+ord a b greater equal less
+lbl greater
+stm greater
+dsp m
+jmp end
+lbl equal
+stm equal
+dsp m
+jmp end
+lbl less
+stm less
+dsp m
+lbl end
