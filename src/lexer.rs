@@ -2,9 +2,7 @@
 //     Divide()
 // }
 
-use rand::{thread_rng, Rng};
-
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum JumpTo<'a> {
     Absolute(usize),
     Relative(isize),
@@ -37,6 +35,7 @@ pub enum Token<'a> {
     CopyRegToBuffer(u8),
     CopyBufferToReg(u8),
     Compare(u8, u8, JumpTo<'a>),
+    Order(u8, u8, [JumpTo<'a>; 3]),
     Jump(JumpTo<'a>),
     Label(&'a str),
     DeleteFile(&'a str),
@@ -74,6 +73,32 @@ pub fn learn_to_read<'a>(input: &'a str) -> Vec<Token<'a>> {
         _ => true,
     });
     tokens
+}
+
+pub fn parse_jump(data: Option<&str>) -> Option<JumpTo> {
+    use JumpTo::*;
+    match data {
+        None => None,
+        Some(arg) if arg.starts_with(['+', '-']) => {
+            // Relative line jumps
+            let Ok(offset) = isize::from_str_radix(arg, 10) else {
+                        return None
+                };
+            if offset == 0 {
+                return None;
+            }
+            Some(Relative(offset))
+        }
+        Some(arg) => {
+            let Ok(absolute) = usize::from_str_radix(arg, 10) else {
+                        return Some(Labeled(&arg[0..arg.bytes().take_while(|&ch| ch != b' ').count()]))
+                    };
+            if absolute == 0 {
+                return None;
+            }
+            Some(Absolute(absolute - 1))
+        }
+    }
 }
 
 fn lex_i_guess<'a>(line: u32, op: &'a str, data: Option<&'a str>) -> Token<'a> {
@@ -167,6 +192,26 @@ fn lex_i_guess<'a>(line: u32, op: &'a str, data: Option<&'a str>) -> Token<'a> {
             Shell(data)
         }
         b"prt" => Print(data.unwrap_or_default()),
+        b"ord" => {
+            let Some(mut args) = data.map(|x| x.splitn(5, ' ')) else {
+                return Unknown(line, op, data)
+            };
+            let (Some(reg1), Some(reg2), jumpto1, jumpto2, jumpto3) = (args.next(), args.next(), args.next(), args.next(), args.next()) else {
+                return Unknown(line, op, data)
+            };
+            let (Some(jumpto1), Some(jumpto2), Some(jumpto3)) = (
+                parse_jump(jumpto1),
+                parse_jump(jumpto2),
+                parse_jump(jumpto3),
+            ) else {
+                return Unknown(line, op, data)
+            };
+            Order(
+                *reg1.as_bytes().get(0).unwrap_or(&65),
+                *reg2.as_bytes().get(0).unwrap_or(&65),
+                [jumpto1, jumpto2, jumpto3],
+            )
+        }
         b"cmp" => {
             let Some(mut args) = data.map(|x| x.splitn(3, ' ')) else {
                 return Unknown(line, op, data)
@@ -287,29 +332,10 @@ fn lex_i_guess<'a>(line: u32, op: &'a str, data: Option<&'a str>) -> Token<'a> {
             Decrement(*arg.as_bytes().get(0).unwrap_or(&65))
         }
         b"jmp" => {
-            use JumpTo::*;
-            match data {
-                None => Unknown(line, op, data),
-                Some(arg) if arg.starts_with(['+', '-']) => {
-                    // Relative line jumps
-                    let Ok(offset) = isize::from_str_radix(arg, 10) else {
-                        return Unknown(line, op, data)
-                };
-                    if offset == 0 {
-                        return Unknown(line, op, data);
-                    }
-                    Jump(Relative(offset))
-                }
-                Some(arg) => {
-                    let Ok(absolute) = usize::from_str_radix(arg, 10) else {
-                        return Jump(Labeled(&arg[0..arg.bytes().take_while(|&ch| ch != b' ').count()]))
-                    };
-                    if absolute == 0 {
-                        return Unknown(line, op, data);
-                    }
-                    Jump(Absolute(absolute - 1))
-                }
-            }
+            let Some(jump) = parse_jump(data) else {
+                return Unknown(line, op, data)
+            };
+            Jump(jump)
         }
         b"lbl" => {
             let Some(data) = data else {

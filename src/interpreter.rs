@@ -72,6 +72,36 @@ pub fn interpret(tokens: Vec<Token>) {
                     }
                 }
             }
+            Order(a, b, jumplist) => {
+                let (a, b) = (&registers[*a as usize], &registers[*b as usize]);
+                use JumpTo::*;
+                let jump = match (a, b) {
+                    (a, b) if a < b => jumplist[0],
+                    (a, b) if a == b => jumplist[1],
+                    (_, _) => jumplist[2],
+                };
+                match jump {
+                    Absolute(dest) => {
+                        if dest < max {
+                            line = dest;
+                        } else {
+                            panic!("Attempt to jump to line out of bounds!\nline: {line},\ntoken: {token:?}")
+                        }
+                    }
+                    Relative(dest) => line = (line as isize + dest) as usize,
+                    Labeled(label) => {
+                        if let Some(dest) = labels.get(label) {
+                            if dest < &max {
+                                line = *dest;
+                            } else {
+                                panic!("Attempt to jump to line out of bounds!\nline: {line},\ntoken: {token:?}")
+                            }
+                        } else {
+                            panic!("Attempt to jump to undefined label!\nline: {line}, token:\n{token:?}")
+                        }
+                    }
+                }
+            }
             CopyRegToBuffer(idx) => buffer = registers[*idx as usize].clone(),
             CopyBufferToReg(idx) => registers[*idx as usize] = buffer.clone(),
             Set(idx, value) => registers[*idx as usize] = interpret_string(Cow::Borrowed(value)),
@@ -231,6 +261,7 @@ pub fn interpret(tokens: Vec<Token>) {
                     }
                 }
             }
+
             n => println!("{n:?}"),
         }
     }

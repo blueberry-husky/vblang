@@ -14,6 +14,15 @@ dsp <opt\\reg\\id> - display contents of buffer if no argument is given, otherwi
 st<id> <value> - sets the value of register _id_ to the given value
 shl <command> - execute shell command - example:"whoami"
 
+ord <reg1> <reg2> <jumpto*\<> <jumpto*\=\=\> <jumpto*\>> - compares \_reg1* to _reg2_, behaves like this LUT {
+
+```
+if reg1 < reg2 => jmp <jumpto_\<>
+if reg1 == reg2 => jmp <jumpto_==>
+if reg1 > reg2 => jmp <jumpto_\>>
+```
+
+}
 cmp <reg1> <reg2> <jumpto> - compares \_reg1* to \_reg2* and if they are equal, run `jmp <jumpto>`
 lbl <label_name> - creates a label bound to the given name(useful for jumping to lables)
 
