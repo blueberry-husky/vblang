@@ -1,0 +1,48 @@
+lbl start
+prt You will have 10 attempts to guess the number from 1-20
+rgi a 1 20
+stc 10
+std 0
+sts  
+jmp main
+
+lbl main
+isc lose
+iib
+cmp a b win
+prt Wrong
+dec c
+inc d
+ord b a higher +1 lower
+jmp main
+
+lbl higher
+prt Higher!
+jmp main
+
+lbl lower
+prt Lower!
+jmp main
+
+lbl lose
+prt You lost :(
+jmp play_again
+
+lbl win
+stl You won in
+sts  
+stm attempts! :D
+add l s
+add l d
+add l s
+add l m
+dsp l
+jmp play_again
+
+lbl play_again
+prt Play again? [1 Yes, 0 No]
+stq 1
+iiz
+cmp z q start 
+
+lbl end
