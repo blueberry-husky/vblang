@@ -1,0 +1,71 @@
+| Types |
+Types are implemented internally as a Rust Enum
+The currently imlemented types are
+
+    Uninitialized -> the state that every buffer and register start out in by default
+    String
+    Float(f64)
+    Integer(isize)
+
+
+| Dynamic typing |
+
+The type priority matches the order of the Implemented types list
+
+Attempting to do any arithmetic with an Uninitialized buffer/register is considered UB and will cause a panic
+Commands
+
+| I/O |
+Command      |    Args   |   Explanation
+dsp        <reg>               display contents of buffer to STDOUT if no argument is given, otherwise display the contents of register 
+si[id]     None                Get string input into register<id>
+ii[id]     None                Get integer input into register<id>
+fi[id]     None                Get floating-point input into register<id>
+dlf        file                deletes the file given as argument, is probably a very bad idea
+ld[id]     file                loads the contents of a given file as the contents of register<id>
+sr[id]     file                saves the contents of register<id> to a file given as the argument
+rst        None                resets all buffers/registers to an Uninitialized state
+dmp        None                Dumps the state of all registers and buffers into STDOUT
+shl        command             executes shell command and sets the value of the buffer to the output
+rgi        <reg> <min> <max>   Sets the contents of register<reg> to a random integer(n) where min <= n < max
+rgf        <reg> <min> <max>   Sets the contents of register<reg> to a random float(n) where min <= n < max
+rgs        <reg> <len>         Sets the contents of register<reg> to a random String(str) of a given len-gth
+
+| Register/buffer operations |
+Command      |    Args   |   Explanation
+st[id]     value          sets the value of register<id> to the given value
+swp        <reg1> <reg2>  swaps the contents of registers reg1 and reg2
+cr[id]     None           Copies the contents of register<id> to buffer
+cb[id]     None           Copies the contents of buffer to register<id>
+
+| Arithmetic |
+Command      |    Args   |   Explanation
+add        <reg1> <reg2>   Adds the contents of reg1 and reg2 and saves the result into reg1
+sub        <reg1> <reg2>   Subrtracts the contents of reg1 from the contents of reg2 and saves the result into reg1
+mul        <reg1> <reg2>   Multiply the contents of registers reg1 and reg2 and saves the result into reg1
+div        <reg1> <reg2>   Divides the contents of reg1 by reg2 and saves the result into reg1
+rem        <reg1> <reg2>   Calculates the remainder from dividing reg1 over reg2 and saves it into reg1
+inc        <reg>           Increments the value of register reg1
+dec        <reg>           Decrements the value of register reg1
+
+| Control-flow |
+Command      |    Args   |   Explanation
+ord        <reg1> <reg2> <jumpto_<> <jumpto*=> <jumpto*>>    compares register reg1 to reg2 and behaves like this LUT, follows jumpto semantics
+cmp        <reg1> <reg2> <jumpto>                            compares register reg1 to reg2 and jumps to jumpto if they are equal, follows jumpto semantics
+lbl        <label_name>                                      creates a label bound to the given name, labels are part of jumpto semantics
+jmp        <jumpto>                                          jumps to the argument, argument follows jumpto semantics
+is[id]     <jumpto>                                          jumps to the argument if the value of register<id> is 0, argument follows jumpto semantics
+
+| Additional info for commands |
+ord
+if reg1 < reg2 => jmp <jumpto_\<>
+if reg1 == reg2 => jmp <jumpto_=>
+if reg1 > reg2 => jmp <jumpto_\>>
+
+| Jumpto semantics |
+
+A jumpto argument can be in any of these formats:
+Format    |    Example    |    Explanation
+absolute        jmp 2        # Jumps to line 2 in file a number corresponding to a specific line in the file
+relative        jmp +2       # Jumps 2 lines forward a number corresponding to current_line + n in the file
+labeled         jmp start    # Jumps to the point of definition of lbl start A name of a label defined in file
