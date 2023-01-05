@@ -18,12 +18,12 @@ Commands
 | I/O |
 Command      |    Args   |   Explanation
 dsp        <reg>               display contents of buffer to STDOUT if no argument is given, otherwise display the contents of register 
-si[id]     None                Get string input into register<id>
-ii[id]     None                Get integer input into register<id>
-fi[id]     None                Get floating-point input into register<id>
+si<id>     None                Get string input into register<id>
+ii<id>     None                Get integer input into register<id>
+fi<id>     None                Get floating-point input into register<id>
 dlf        file                deletes the file given as argument, is probably a very bad idea
-ld[id]     file                loads the contents of a given file as the contents of register<id>
-sr[id]     file                saves the contents of register<id> to a file given as the argument
+ld<id>     file                loads the contents of a given file as the contents of register<id>
+sr<id>     file                saves the contents of register<id> to a file given as the argument
 rst        None                resets all buffers/registers to an Uninitialized state
 dmp        None                Dumps the state of all registers and buffers into STDOUT
 shl        command             executes shell command and sets the value of the buffer to the output
@@ -33,10 +33,10 @@ rgs        <reg> <len>         Sets the contents of register<reg> to a random St
 
 | Register/buffer operations |
 Command      |    Args   |   Explanation
-st[id]     value          sets the value of register<id> to the given value
+st<id>     value          sets the value of register<id> to the given value
 swp        <reg1> <reg2>  swaps the contents of registers reg1 and reg2
-cr[id]     None           Copies the contents of register<id> to buffer
-cb[id]     None           Copies the contents of buffer to register<id>
+cr<id>     None           Copies the contents of register<id> to buffer
+cb<id>     None           Copies the contents of buffer to register<id>
 
 | Arithmetic |
 Command      |    Args   |   Explanation
@@ -54,7 +54,7 @@ ord        <reg1> <reg2> <jumpto_<> <jumpto*=> <jumpto*>>    compares register r
 cmp        <reg1> <reg2> <jumpto>                            compares register reg1 to reg2 and jumps to jumpto if they are equal, follows jumpto semantics
 lbl        <label_name>                                      creates a label bound to the given name, labels are part of jumpto semantics
 jmp        <jumpto>                                          jumps to the argument, argument follows jumpto semantics
-is[id]     <jumpto>                                          jumps to the argument if the value of register<id> is 0, argument follows jumpto semantics
+is<id>     <jumpto>                                          jumps to the argument if the value of register<id> is 0, argument follows jumpto semantics
 
 | Additional info for commands |
 ord
