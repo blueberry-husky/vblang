@@ -29,7 +29,7 @@ Attempting to do any arithmetic with an Uninitialized `buffer/register` is consi
 
 | Command | Args                    | Explanation                                                                                                         |
 | ------: | ----------------------- | :------------------------------------------------------------------------------------------------------------------ |
-|     dsp | \<reg\>                 | display contents of `buffer` to `STDOUT` if no argument is given, otherwise display the contents of `register<id>` `|
+|     dsp | \<reg\>                 | display contents of `buffer` to `STDOUT` if no argument is given, otherwise display the contents of `register<id>`  |
 |  si[id] | ~~None~~                | Get string input into `register<id>`                                                                                |
 |  ii[id] | ~~None~~                | Get integer input into `register<id>`                                                                               |
 |  fi[id] | ~~None~~                | Get floating-point input into `register<id>`                                                                        |
