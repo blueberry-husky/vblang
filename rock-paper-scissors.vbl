@@ -1,0 +1,49 @@
+prt Welcome to rock paper scissors!
+prt 1. rock
+prt 2. paper
+prt 3. scissors
+
+stc 1
+std 2
+ste 3
+rgi b 1 3
+
+iia
+cmp a b tie
+
+cmp b c rock
+cmp b d paper
+cmp b e scissors
+
+lbl rock
+cmp a d win
+cmp a e lose
+prt Unknown error.. invalid move?
+jmp end
+
+lbl paper
+cmp a e win
+cmp a c lose
+prt Unknown error.. invalid move?
+jmp end
+
+lbl scissors
+cmp a c win
+cmp a d lose
+prt Unknown error.. invalid move?
+jmp end
+
+lbl tie
+prt Tie!! :o
+jmp end
+
+lbl win
+prt You Win!! :)
+jmp end
+
+
+lbl lose
+prt you lost :(
+jmp end
+
+lbl end
